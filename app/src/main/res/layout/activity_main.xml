@@ -10,6 +10,7 @@
     tools:context=".MainActivity">
 />
     <TextView
+        android:id="@+id/input_text"
         android:layout_columnSpan="4"
         android:layout_gravity="fill"
         android:gravity="right|bottom"
@@ -17,12 +18,14 @@
         android:textSize="50sp"
         />
     <Button
+        android:id="@+id/button_ac"
         android:layout_columnSpan="2"
-        android:text="C"
+        android:text="AC"
         android:textSize="30sp"
         android:layout_gravity="fill_horizontal"
         />
     <Button
+        android:id="@+id/delete"
         android:layout_columnSpan="2"
         android:textSize="30sp"
         android:layout_gravity="fill_horizontal"
@@ -30,46 +33,74 @@
         android:text="←"
         />
     <Button
+        android:id="@+id/button_1"
         android:text="1"
         android:textSize="30sp"
         />
     <Button
+        android:id="@+id/button_2"
         android:text="2"
         android:textSize="30sp"
         />
-    <Button android:text="3"
+    <Button
+        android:id="@+id/button_3"
+        android:text="3"
         android:textSize="30sp"/>
     <Button
+        android:id="@+id/button_add"
         android:text="+"
         android:textSize="30sp"
         android:layout_gravity="fill"
         />
-    <Button android:text="4"
+    <Button
+        android:id="@+id/button_4"
+        android:text="4"
         android:textSize="30sp"/>
-    <Button android:text="5"
+    <Button
+        android:id="@+id/button_5"
+        android:text="5"
         android:textSize="30sp"/>
-    <Button android:text="6"
+    <Button
+        android:id="@+id/button_6"
+        android:text="6"
         android:textSize="30sp"/>
-    <Button android:text="-"
+    <Button
+        android:id="@+id/button_sub"
+        android:text="-"
         android:textSize="30sp"
         android:layout_gravity="fill" />
-    <Button android:text="7"
+    <Button
+        android:id="@+id/button_7"
+        android:text="7"
         android:textSize="30sp"/>
-    <Button android:text="8"
+    <Button
+        android:id="@+id/button_8"
+        android:text="8"
         android:textSize="30sp"/>
-    <Button android:text="9"
+    <Button
+        android:id="@+id/button_9"
+        android:text="9"
         android:textSize="30sp"/>
-    <Button android:text="*"
+    <Button
+        android:id="@+id/button_mult"
+        android:text="*"
         android:textSize="30sp"
         android:layout_gravity="fill"/>
     <Button
+        android:id="@+id/button_point"
         android:text="."
         android:textSize="30sp"/>
-    <Button android:text="0"
+    <Button
+        android:id="@+id/button_0"
+        android:text="0"
         android:textSize="30sp"/>
-    <Button android:text="/"
+    <Button
+        android:id="@+id/div"
+        android:text="/"
         android:textSize="30sp"/>
-    <Button android:text="="
+    <Button
+        android:id="@+id/equal"
+        android:text="="
         android:textSize="30sp"
         android:layout_gravity="fill_horizontal"/>
 </GridLayout>

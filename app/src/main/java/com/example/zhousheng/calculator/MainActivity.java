@@ -2,14 +2,21 @@ package com.example.zhousheng.calculator;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.Stack;
 
-    StringBuilder words=new StringBuilder();
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    StringBuilder words = new StringBuilder();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,16 +59,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button_equal.setOnClickListener(this);
 
     }
-    public void onClick (View v)
-    {
-        TextView input_text=(TextView)findViewById(R.id.input_text);
-        switch(v.getId())
-        {
+
+    public void onClick(View v) {
+        Button button_ac = (Button) findViewById(R.id.button_ac);    //清零
+        TextView input_text = (TextView) findViewById(R.id.input_text);
+        switch (v.getId()) {
             case R.id.button_0:
-                if(words.length()==0) {
+                if (words.length() == 0) {
                     break;
-                }
-                else {
+                } else {
                     words = words.append("0");
                     input_text.setText(words);
                 }
@@ -82,10 +88,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 words = words.append("4");
                 input_text.setText(words);
                 break;
-             case R.id.button_5:
-                 words = words.append("5");
-                 input_text.setText(words);;
-                    break;
+            case R.id.button_5:
+                words = words.append("5");
+                input_text.setText(words);
+                ;
+                break;
             case R.id.button_6:
                 words = words.append("6");
                 input_text.setText(words);
@@ -104,86 +111,239 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.button_ac:
                 input_text.setText("");
-                words=words.delete(0,words.length());
+                words = words.delete(0, words.length());
                 break;
             case R.id.button_point:
                 ;
-                if(words.length()==0) {
-                    words=words.append("0.");
+                if (words.length() == 0) {
+                    words = words.append("0");
+                    words = words.append(".");
                     input_text.setText(words);
                     break;
                 }
                 char num_point = words.charAt(words.length() - 1);
-               if (num_point == '/' || num_point == '-' || num_point == '+' || num_point == '.' || num_point == '*') {
-                    words = words.append("0.");
-                    input_text.setText(words);
-                }
-                else {
+                if (num_point == '/' || num_point == '-' || num_point == '+' || num_point == '*') {
+                    words = words.append("0");
                     words = words.append(".");
                     input_text.setText(words);
+                    break;
                 }
+                if (words.length() >= 2) {
+                    if (num_point == '.')
+                        break;
+                    char num_point2 = words.charAt(words.length() - 2);
+                    if (num_point2 == '.') {
+                        Toast.makeText(MainActivity.this, "请输入正确表达式！", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+
+                words = words.append(".");
+                input_text.setText(words);
+
                 break;
             case R.id.button_add:
-                if(words.length()>0) {
+                if (words.length() > 0) {
                     char num = words.charAt(words.length() - 1);
                     if (num == '/' || num == '-' || num == '+' || num == '.' || num == '*') {
                         Toast.makeText(MainActivity.this, "请输入正确表达式！", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         words = words.append("+");
                         input_text.setText(words);
                     }
                 }
                 break;
             case R.id.button_sub:
-                if(words.length()>0) {
+                if (words.length() > 0) {
                     char num = words.charAt(words.length() - 1);
                     if (num == '/' || num == '-' || num == '+' || num == '.' || num == '*') {
                         Toast.makeText(MainActivity.this, "请输入正确表达式！", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         words = words.append("-");
                         input_text.setText(words);
                     }
                 }
                 break;
             case R.id.button_mult:
-                if(words.length()>0) {
+                if (words.length() > 0) {
                     char num = words.charAt(words.length() - 1);
                     if (num == '/' || num == '-' || num == '+' || num == '.' || num == '*') {
                         Toast.makeText(MainActivity.this, "请输入正确表达式！", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         words = words.append("*");
                         input_text.setText(words);
                     }
                 }
                 break;
             case R.id.button_div:
-                if(words.length()>0) {
+                if (words.length() > 0) {
                     char num = words.charAt(words.length() - 1);
-                    char num1 = words.charAt(words.length() - 2);
-                    if (num == '0'&&(num1 == '/' || num1 == '-' || num1 == '+' || num1 == '*'))
-                        Toast.makeText(MainActivity.this, "除数不能为0！", Toast.LENGTH_SHORT).show();
-                    else if (num == '/' || num == '-' || num == '+' || num == '.' || num == '*')
+                    if (words.length() > 1) {
+                        char num1 = words.charAt(words.length() - 2);
+                        if (num == '0' && (num1 == '/' || num1 == '-' || num1 == '+' || num1 == '*')) {
+                            Toast.makeText(MainActivity.this, "除数不能为0！", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+
+                    }
+                    if (num == '/' || num == '-' || num == '+' || num == '.' || num == '*') {
                         Toast.makeText(MainActivity.this, "请输入正确表达式！", Toast.LENGTH_SHORT).show();
-                    else {
-                        words = words.append("/");
-                        input_text.setText(words);
+                        break;
+
+                    }
+                    words = words.append("/");
+                    input_text.setText(words);
+
                 }
-                }
+
                 break;
             case R.id.button_delete:
-                if(words.length()>0){
+                if (words.length() > 0) {
                     words.delete(words.length() - 1, words.length());
                     input_text.setText(words);
                 }
                 break;
-                default:
-                    break;
+            case R.id.button_equal:
+                String post = Postfix(words);
+                String result = numberCalculate(post);
+                input_text.setText(result);
+                words = words.delete(0, words.length());
+                words.append(result);
+
+                break;
+            default:
+                break;
 
         }
 
+
     }
 
+    public boolean operator(char op) {
+        if (op == '+' || op == '-' || op == '*' || op == '/' || op == '~') {
+            return true;
+        } else
+            return false;
+    }
+
+    private int priority(char c) {     //判断优先级
+        switch (c) {
+            case '~':
+                return 0;
+            case '+':
+            case '-':
+            case ')':
+                return 1;
+            case '*':
+            case '/':
+                return 2;
+            case '(':
+                return 3;
+        }
+        return 0;
+    }
+
+    boolean isInStack = false;  //是否检测到运算符
+    boolean calculateOne = true;   //删除栈顶的‘#’
+    /* private boolean judgeOnFirst = true; */
+
+
+    public String Postfix(StringBuilder words) {
+        Stack<Character> mark = new Stack<Character>(); //运算符栈
+        words = words.append("~");  //最后一位添加“#”以表示运算结束
+        String post = "";      //后缀表达式
+        String total = "";
+        String num = "";
+        for (int i = 0; i <= words.length() - 1; i++) {
+            char oper = words.charAt(i);
+            if (operator(oper) == true) {
+                isInStack = true;
+                if (isInStack == true && total != "") {
+                    post = post + total + " ";
+                    total = "";
+                }
+                while (!mark.empty() && oper != '~')   //如果栈非空，且表达式未遍历完
+                {
+                    Character ac = mark.pop();
+                    if (ac != null && (priority(ac.charValue()) > priority(oper) || priority(ac.charValue()) == priority(oper))) {  //判断栈顶符号与当前符号的优先级
+                        post = post + ac;             //如果栈顶符号的优先级高，则输出到后缀表达式中
+                        ac = null;
+                    }
+                    if (ac != null) {
+                        mark.push(ac);
+                        break;
+                    }
+                }
+                if (oper != '~') {
+                    mark.push(oper);
+                }
+            } else {
+                num = oper + "";
+                total += num;
+            }
+        }
+        while (!mark.isEmpty()) {
+
+            post += " " + mark.pop().toString(); //如果栈非空，需要将栈中运算符放到后缀表达式末尾
+        }
+        return post;
+    }
+
+
+    public String numberCalculate(String post) {
+        Stack<String> num_stk = new Stack<String>();    //操作数栈,初始化
+        String num = "";
+        String total = "";
+        for (int i = 0; i < post.length(); i++) {
+            char oper = post.charAt(i);
+            if (oper == ' ') {
+                num_stk.push(total.toString()); //数字入栈
+                total = "";
+                if (num_stk.contains(" ")) {
+                    num_stk.pop();
+                }
+            }
+            if (operator(oper)) {
+
+                double num2 = Double.valueOf(num_stk.pop().toString());
+                double num1 = Double.valueOf(num_stk.pop().toString());
+                double result = 0;
+                switch (oper) {
+                    case '+':
+                        result = num1 + num2;
+                        break;
+                    case '-':
+                        BigDecimal numA = new BigDecimal(Double.toString(num1));
+                        BigDecimal numB = new BigDecimal(Double.toString(num2));
+                        result = numA.subtract(numB).doubleValue();//add(numB).doubleValue();
+                        // result=num1-num2;
+                        break;
+                    case '*':
+                        result = num1 * num2;
+                        break;
+                    case '/':
+                        result = num1 / num2;
+                        break;
+                    default:
+                        break;
+                }
+                String value = String.valueOf(result);
+                if (value.indexOf(".") > 0) {
+                    value = value.replaceAll("0+?$", "");//去掉多余的0,正则表达式
+                    value = value.replaceAll("[.]$", "");//如最后一位是.则去掉
+
+                }
+                num_stk.push(value);  //操作后的结果入栈
+
+            } else {
+                num = oper + "";
+                total += num;
+            }
+        }
+        String final_result = num_stk.pop();
+        return final_result;
+
+    }
 }
+
+

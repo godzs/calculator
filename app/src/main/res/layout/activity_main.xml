@@ -16,7 +16,11 @@
         android:gravity="right|bottom"
         android:hint="input"
         android:textSize="50sp"
+        android:ellipsize="end"
+        android:singleLine="true"
+    android:textStyle="bold"
         />
+    <!--singleLine表示单行显示   ellipsize表示省略号放在最后显示 bold是加粗-->
     <Button
         android:id="@+id/button_ac"
         android:layout_columnSpan="2"

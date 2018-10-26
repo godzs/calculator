@@ -1,5 +1,6 @@
 package com.example.zhousheng.calculator;
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +21,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+            setContentView(R.layout.activity_main);
         Button button_1 = (Button) findViewById(R.id.button_1);
         Button button_2 = (Button) findViewById(R.id.button_2);
         Button button_3 = (Button) findViewById(R.id.button_3);
@@ -243,11 +245,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return 0;
     }
 
-    boolean isInStack = false;  //是否检测到运算符
-    boolean calculateOne = true;   //删除栈顶的‘#’
-    /* private boolean judgeOnFirst = true; */
-
-
     public String Postfix(StringBuilder words) {
         Stack<Character> mark = new Stack<Character>(); //运算符栈
         words = words.append("~");  //最后一位添加“#”以表示运算结束
@@ -257,8 +254,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (int i = 0; i <= words.length() - 1; i++) {
             char oper = words.charAt(i);
             if (operator(oper) == true) {
-                isInStack = true;
-                if (isInStack == true && total != "") {
+                if (total != "") {
                     post = post + total + " ";
                     total = "";
                 }

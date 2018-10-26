@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.button_equal:
                 String post = Postfix(words);
-                String result = numberCalculate(post);
+                String result = numberCount(post);
                 input_text.setText(result);
                 words = words.delete(0, words.length());
                 words.append(result);
@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public String numberCalculate(String post) {
+    public String numberCount(String post) {
         Stack<String> num_stk = new Stack<String>();    //操作数栈,初始化
         String num = "";
         String total = "";

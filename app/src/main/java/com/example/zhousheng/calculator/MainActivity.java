@@ -65,7 +65,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         Button button_ac = (Button) findViewById(R.id.button_ac);    //清零
         TextView input_text = (TextView) findViewById(R.id.input_text);
+        if(words.length()>=0)
+            button_ac.setText("C");
         switch (v.getId()) {
+
             case R.id.button_0:
                 if (words.length() == 0) {
                     break;
@@ -113,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.button_ac:
                 input_text.setText("");
+                button_ac.setText("AC");
                 words = words.delete(0, words.length());
                 break;
             case R.id.button_point:

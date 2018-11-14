@@ -222,7 +222,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
-
     }
 
     public boolean operator(char op) {

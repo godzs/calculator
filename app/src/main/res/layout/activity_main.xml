@@ -24,7 +24,6 @@
     <!--singleLine表示单行显示   ellipsize表示省略号放在最后显示 bold是加粗-->
     <Button
         android:id="@+id/button_ac"
-        android:layout_columnSpan="2"
         android:text="AC"
         android:layout_height="60sp"
         android:layout_marginBottom="3dp"
@@ -32,6 +31,17 @@
         android:background="#000000"
         android:textColor="#ffffff"
         android:layout_gravity="fill_horizontal"
+        />
+    <Button
+        android:id="@+id/button_min"
+        android:textSize="30sp"
+        android:layout_height="60sp"
+        android:layout_marginBottom="3dp"
+        android:background="#000000"
+        android:textColor="#ffffff"
+        android:layout_marginLeft="3dp"
+        android:gravity="center"
+        android:text="+/-"
         />
     <Button
         android:id="@+id/button_delete"
@@ -43,7 +53,6 @@
         android:layout_marginLeft="3dp"
         android:gravity="center"
         android:text="←"
-
         />
     <Button
         android:id="@+id/button_div"

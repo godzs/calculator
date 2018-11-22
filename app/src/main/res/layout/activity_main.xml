@@ -17,11 +17,14 @@
         android:hint="input"
         android:textColor="#000000"
         android:textSize="50sp"
-        android:ellipsize="end"
-        android:singleLine="true"
-    android:textStyle="bold"
+        android:textStyle="bold"
+        android:maxLines="1"
+        android:autoSizeMaxTextSize="50sp"
+        android:autoSizeMinTextSize="2dp"
+        android:autoSizeTextType="uniform"
         />
-    <!--singleLine表示单行显示   ellipsize表示省略号放在最后显示 bold是加粗-->
+
+
     <Button
         android:id="@+id/button_ac"
         android:text="AC"

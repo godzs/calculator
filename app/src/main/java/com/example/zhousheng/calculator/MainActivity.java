@@ -1,9 +1,11 @@
 package com.example.zhousheng.calculator;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,7 +19,6 @@ import java.util.Stack;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     StringBuilder words = new StringBuilder();
-    StringBuilder words1 = new StringBuilder();
     int i=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,14 +111,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button_div.setOnClickListener(this);
         button_equal.setOnClickListener(this);
         button_min.setOnClickListener(this);
-
-
     }
+
 
     public void onClick(View v) {
         Button button_ac = (Button) findViewById(R.id.button_ac);    //清零
         TextView input_text = (TextView) findViewById(R.id.input_text);
-
         switch (v.getId()) {
 
             case R.id.button_0:
@@ -316,7 +315,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     input_text.setText("-");
                 }
                     break;
-            case R.id.button_divx:
+            case R.id.button_divx:   //1/x
                 if(words.length()==0)
             {
                 input_text.setText("error!");
@@ -334,6 +333,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     words = words.delete(0, words.length());
                     words=words.append(num_y);
                     input_text.setText(words);
+                    i=1;
                 }
                 break;
 
@@ -350,6 +350,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     words = words.delete(0, words.length());
                     words=words.append("1");
                     input_text.setText(words);
+                    i=1;
                     break;
                 }
                 else
@@ -361,6 +362,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     words = words.delete(0, words.length());
                     words=words.append(sum.toString());
                     input_text.setText(words);
+                    i=1;
                 }
                 break;
 
@@ -414,9 +416,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 double num = Double.valueOf(words.toString());
                 double num1=Math.sin(Math.toRadians(num));
+                DecimalFormat b1=new DecimalFormat("########.#######");
                 words = words.delete(0, words.length());
-                words=words.append(num1);
+                words=words.append(b1.format(num1));
                 input_text.setText(words);
+                i=1;
                 break;
 
             case R.id.button_cos:
@@ -427,9 +431,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 double num_cos = Double.valueOf(words.toString());
                 double num1_cos=Math.cos(Math.toRadians(num_cos));
+                DecimalFormat b2=new DecimalFormat("########.#######");
                 words = words.delete(0, words.length());
-                words=words.append(num1_cos);
+                words=words.append(b2.format(num1_cos));
                 input_text.setText(words);
+                i=1;
                 break;
 
             case R.id.button_tan:
@@ -440,20 +446,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 double num_tan = Double.valueOf(words.toString());
                 double num1_tan=Math.tan(Math.toRadians(num_tan));
+                DecimalFormat b3=new DecimalFormat("########.#######");
                 words = words.delete(0, words.length());
-                words=words.append(num1_tan);
+                words=words.append(b3.format(num1_tan));
                 input_text.setText(words);
+                i=1;
                 break;
             case R.id.button_e:
                 words = words.delete(0, words.length());
                 words=words.append(Math.E);
                 input_text.setText(words);
+                i=1;
                 break;
 
             case R.id.button_pi:
                 words = words.delete(0, words.length());
                 words=words.append(Math.PI);
                 input_text.setText(words);
+                i=1;
                 break;
 
             case R.id.button_ln:
@@ -466,6 +476,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 words = words.delete(0, words.length());
                 words=words.append(Math.log(num_ln));
                 input_text.setText(words);
+                i=1;
                 break;
 
             case R.id.button_ex:
@@ -478,6 +489,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 words = words.delete(0, words.length());
                 words=words.append(Math.exp(num_ex));
                 input_text.setText(words);
+                i=1;
                 break;
             case R.id.button_genhao:
                 if(words.length()==0)
@@ -489,6 +501,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 words = words.delete(0, words.length());
                 words=words.append(Math.sqrt(num_genhao));
                 input_text.setText(words);
+                i=1;
                 break;
             case R.id.button_3genhao:
                 if(words.length()==0)
@@ -503,6 +516,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 DecimalFormat b=new DecimalFormat("########.######");
                 words=words.append(b.format(y));
                 input_text.setText(words);
+                i=1;
                 break;
 
             case R.id.button_log:
@@ -515,6 +529,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 words = words.delete(0, words.length());
                 words=words.append(Math.log10(num_log));
                 input_text.setText(words);
+                i=1;
                 break;
 
             case R.id.button_2X:  //2的x次方
@@ -527,6 +542,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 words = words.delete(0, words.length());
                 words=words.append(Math.pow(2,num_2x));
                 input_text.setText(words);
+                i=1;
                 break;
 
             case R.id.button_X2:   //x平方
@@ -540,6 +556,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 words = words.delete(0, words.length());
                 words=words.append(num_x2);
                 input_text.setText(words);
+                i=1;
                 break;
 
             case R.id.button_x3:
@@ -553,6 +570,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 words = words.delete(0, words.length());
                 words=words.append(num_x3);
                 input_text.setText(words);
+                i=1;
                 break;
 
             case R.id.button_equal:

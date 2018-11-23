@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Stack;
 
-
+//designed by 计科1606 周圣 2016012711
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     StringBuilder words = new StringBuilder();
